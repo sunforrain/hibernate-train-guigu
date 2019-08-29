@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Date;
@@ -121,7 +122,10 @@ public class HibernateTest {
 			public void execute(Connection connection) throws SQLException {
 				System.out.println(connection); 
 				
-				//调用存储过程. 
+				//调用存储过程.
+//				String procedure = "{ call testProcedure() }";
+//				CallableStatement callableStatement = connection.prepareCall(procedure);
+//				callableStatement.executeUpdate();
 			}
 		});
 	}
