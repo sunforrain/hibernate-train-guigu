@@ -17,6 +17,7 @@ public class News {
 	
 	//大文本
 	private String content;
+
 	//二进制数据
 	private Blob image;
 	

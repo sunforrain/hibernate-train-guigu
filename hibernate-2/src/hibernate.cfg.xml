@@ -10,11 +10,11 @@
     	<property name="connection.username">root</property>
     	<property name="connection.password">123456</property>
     	<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-    	<property name="connection.url">jdbc:mysql://192.168.2.171/hibernate5?useUnicod=true&amp;characterEncoding=utf-8</property>
+    	<property name="connection.url">jdbc:mysql://192.168.1.7/hibernate5?useUnicod=true&amp;characterEncoding=utf-8</property>
 
 		<!-- Hibernate 的基本配置 -->
-		<!-- Hibernate 使用的数据库方言 -->
-		<property name="dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
+		<!-- Hibernate 使用的数据库方言,mysql5以后版本语句标准有变化,不能用MySQLInnoDBDialect -->
+		<property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
 	
 		<!-- 运行时是否打印 SQL -->
     	<property name="show_sql">true</property>
@@ -42,16 +42,16 @@
     	<!---->
     	<property name="c3p0.max_statements">10</property>
     	<!---->
-    	<!--&lt;!&ndash; 设定 JDBC 的 Statement 读取数据的时候每次从数据库中取出的记录条数 &ndash;&gt;-->
-    	<!--<property name="hibernate.jdbc.fetch_size">100</property>-->
+    	<!-- 设定 JDBC 的 Statement 读取数据的时候每次从数据库中取出的记录条数 -->
+    	<property name="hibernate.jdbc.fetch_size">100</property>
     	<!---->
-    	<!--&lt;!&ndash; 设定对数据库进行批量删除，批量更新和批量插入的时候的批次大小 &ndash;&gt;-->
-    	<!--<property name="jdbc.batch_size">30</property>-->
+    	<!-- 设定对数据库进行批量删除，批量更新和批量插入的时候的批次大小 -->
+    	<property name="jdbc.batch_size">30</property>
     	
     	<!-- 需要关联的 hibernate 映射文件 .hbm.xml -->
 
     	<mapping resource="com/atguigu/hibernate/entities/News.hbm.xml"/>
-    	<!--<mapping resource="com/atguigu/hibernate/entities/Worker.hbm.xml"/>-->
+    	<mapping resource="com/atguigu/hibernate/entities/Worker.hbm.xml"/>
     	<!---->
     	<!--<mapping resource="com/atguigu/hibernate/entities/n21/Customer.hbm.xml"/>-->
     	<!--<mapping resource="com/atguigu/hibernate/entities/n21/Order.hbm.xml"/>-->

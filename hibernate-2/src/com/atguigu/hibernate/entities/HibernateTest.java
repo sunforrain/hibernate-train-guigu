@@ -7,6 +7,8 @@ import java.sql.Blob;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.hibernate.Hibernate;
@@ -52,42 +54,45 @@ public class HibernateTest {
 		sessionFactory.close();
 	}
 	
-//	@Test
-//	public void testComponent(){
-//		Worker worker = new Worker();
-//		Pay pay = new Pay();
-//
-//		pay.setMonthlyPay(1000);
-//		pay.setYearPay(80000);
-//		pay.setVocationWithPay(5);
-//
-//		worker.setName("ABCD");
-//		worker.setPay(pay);
-//
-//		session.save(worker);
-//	}
+	@Test
+	public void testComponent(){
+		Worker worker = new Worker();
+		Pay pay = new Pay();
+
+		pay.setMonthlyPay(1000);
+		pay.setYearPay(80000);
+		pay.setVocationWithPay(5);
+
+		worker.setName("ABCD");
+		worker.setPay(pay);
+
+		session.save(worker);
+	}
 	
 	@Test
 	public void testBlob() throws Exception{
+	    // 保存图片的代码
 //		News news = new News();
 //		news.setAuthor("cc");
 //		news.setContent("CONTENT");
 //		news.setDate(new Date());
 //		news.setDesc("DESC");
 //		news.setTitle("CC");
-//		
+//
 //		InputStream stream = new FileInputStream("Hydrangeas.jpg");
+//		// 这是个hibernate的工具类,用来制造Lob类型的数据,可以看到需要个输入流和输入流的的byte数
 //		Blob image = Hibernate.getLobCreator(session)
 //				              .createBlob(stream, stream.available());
 //		news.setImage(image);
-//		
+//
 //		session.save(news);
-		
+
+		// 查询出图片的代码
 		News news = (News) session.get(News.class, 1);
 		Blob image = news.getImage();
-		
+
 		InputStream in = image.getBinaryStream();
-		System.out.println(in.available()); 
+		System.out.println(in.available());
 	}
 	
 	@Test
@@ -100,10 +105,11 @@ public class HibernateTest {
 	}
 	
 	@Test
-	public void testIdGenerator() throws InterruptedException{
-		News news = new News("AA", "aa", new java.sql.Date(new Date().getTime()));
-		session.save(news); 
-		
+	public void testIdGenerator() throws InterruptedException, ParseException {
+	    // 这里演示了date三种子类之一sql.Date的创建方式
+		News news = new News("CC", "cc", new java.sql.Date(new Date().getTime()));
+		session.save(news);
+		// 测试increment进行主键生成的线程安全问题
 //		Thread.sleep(5000); 
 	}
 	
