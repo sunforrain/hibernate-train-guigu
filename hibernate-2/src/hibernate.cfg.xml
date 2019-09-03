@@ -10,7 +10,7 @@
     	<property name="connection.username">root</property>
     	<property name="connection.password">123456</property>
     	<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-    	<property name="connection.url">jdbc:mysql://192.168.1.7/hibernate5?useUnicod=true&amp;characterEncoding=utf-8</property>
+    	<property name="connection.url">jdbc:mysql://192.168.2.169/hibernate5?useUnicod=true&amp;characterEncoding=utf-8</property>
 
 		<!-- Hibernate 的基本配置 -->
 		<!-- Hibernate 使用的数据库方言,mysql5以后版本语句标准有变化,不能用MySQLInnoDBDialect -->
@@ -50,15 +50,15 @@
     	
     	<!-- 需要关联的 hibernate 映射文件 .hbm.xml -->
 
-    	<mapping resource="com/atguigu/hibernate/entities/News.hbm.xml"/>
-    	<mapping resource="com/atguigu/hibernate/entities/Worker.hbm.xml"/>
-    	<!---->
+    	<!--<mapping resource="com/atguigu/hibernate/entities/News.hbm.xml"/>-->
+    	<!--<mapping resource="com/atguigu/hibernate/entities/Worker.hbm.xml"/>-->
+
     	<!--<mapping resource="com/atguigu/hibernate/entities/n21/Customer.hbm.xml"/>-->
     	<!--<mapping resource="com/atguigu/hibernate/entities/n21/Order.hbm.xml"/>-->
-		<!---->
-		<!---->
-    	<!--<mapping resource="com/atguigu/hibernate/entities/n21/both/Customer.hbm.xml"/>-->
-    	<!--<mapping resource="com/atguigu/hibernate/entities/n21/both/Order.hbm.xml"/>-->
+
+		<!--双向一对多请放开下面的映射文件,备注掉上面的-->
+    	<mapping resource="com/atguigu/hibernate/entities/n21/both/Customer.hbm.xml"/>
+    	<mapping resource="com/atguigu/hibernate/entities/n21/both/Order.hbm.xml"/>
     
     </session-factory>
 </hibernate-configuration>

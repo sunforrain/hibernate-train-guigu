@@ -7,11 +7,11 @@
         <property name="connection.username">root</property>
         <property name="connection.password">123456</property>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://192.168.2.169/hibernate5?useUnicod=true&amp;characterEncoding=utf-8 </property>
+        <property name="connection.url">jdbc:mysql://192.168.1.7/hibernate5?useUnicod=true&amp;characterEncoding=utf-8 </property>
 
         <!-- 配置 hibernate 的基本信息 -->
         <!-- hibernate 所使用的数据库方言 -->
-        <property name="dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
+        <property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
 
         <!-- 执行操作时是否在控制台打印 SQL -->
         <property name="show_sql">true</property>
@@ -19,10 +19,10 @@
         <!-- 是否对 SQL 进行格式化 -->
         <property name="format_sql">true</property>
 
-        <!-- 指定自动生成数据表的策略 -->
+        <!-- 指定自动生成数据表的策略,因为mysql建表语句的规则变化,这个功能不一定好用 -->
         <property name="hbm2ddl.auto">update</property>
 
         <!-- 指定关联的 .hbm.xml 文件 -->
-        <mapping resource="com/atguigu/hibernate/helloworld/News.hbm.xml"/>
+        <mapping resource="com/atguigu/hibernate/helloworld/entity/News.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

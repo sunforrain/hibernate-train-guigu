@@ -18,22 +18,30 @@
         <property name="author" type="java.lang.String" index="news_index">
             <column name="AUTHOR" />
         </property>
-        
-        <property name="date" type="time">
+        <!-- 注意日期格式的type映射问题 -->
+        <property name="date" type="date">
             <column name="DATE" />
         </property>
         
-        <!-- 映射派生属性 -->
+        <!-- 映射派生属性,没有数据库字段,但是前台要用的
+            对于一些复杂的,需要在数据库层面完成计算的值,可以这么写 -->
         <property name="desc" formula="(SELECT concat(author, ': ', title) FROM NEWS n WHERE n.id = id)"></property>
         
         <!-- 映射大对象 -->
         <!-- 若希望精确映射 SQL 类型, 可以使用 sql-type 属性. -->
+        <!--<property name="content" type="clob">-->
+        	<!--<column name="CONTENT"></column>-->
+        <!--</property>-->
         <property name="content">
-        	<column name="CONTENT" sql-type="mediumtext"></column>
+            <column name="CONTENT" sql-type="mediumtext"></column>
         </property>
         
+        <!--<property name="image" type="blob">-->
+        	<!--<column name="IMAGE"></column>-->
+        <!--</property>-->
+
         <property name="image">
-        	<column name="IMAGE" sql-type="mediumblob"></column>
+            <column name="IMAGE" sql-type="mediumblob"></column>
         </property>
         
     </class>

@@ -23,7 +23,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class HibernateTest {
+public class HibernateTest1 {
 
 	private SessionFactory sessionFactory;
 	// 注意在生产中session和transaction是不能作为成员变量的,会有并发问题,这里测试没有问题

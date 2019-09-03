@@ -4,11 +4,12 @@
 
 <hibernate-mapping package="com.atguigu.hibernate.helloworld">
 
-    <class name="News" table="NEWS" dynamic-insert="true">
+    <class name="com.atguigu.hibernate.helloworld.entity.News" table="NEWS" dynamic-insert="true">
     	
         <id name="id" type="java.lang.Integer">
             <column name="ID" />
             <!-- 指定主键的生成方式, native: 使用数据库本地方式 -->
+            <!--也是指定持久化类的OID和表的主键映射-->
             <generator class="native" />
         </id>
     
