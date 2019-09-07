@@ -67,7 +67,7 @@ public class HibernateTestDoubleOneToMany {
 	@Test
 	public void testOne2ManyGet(){
 		//1. 对 n 的一端的集合使用延迟加载
-		Customer customer = (Customer) session.get(Customer.class, 1);
+		Customer customer = (Customer) session.get(Customer.class, 4);
 		System.out.println(customer.getCustomerName()); 
 		//2. 返回的多的一端的集合时 Hibernate 内置的集合类型. 
 		//该类型具有延迟加载和存放代理对象的功能. 
@@ -85,12 +85,12 @@ public class HibernateTestDoubleOneToMany {
 	public void testMany2OneGet(){
 		//1. 若查询多的一端的一个对象, 则默认情况下, 只查询了多的一端的对象. 而没有查询关联的
 		//1 的那一端的对象!
-		Order order = (Order) session.get(Order.class, 1);
+		Order order = (Order) session.get(Order.class, 3);
 		System.out.println(order.getOrderName());
 
 		System.out.println(order.getCustomer().getClass().getName());
 
-		session.close();
+//		session.close();
 		
 		//2. 在需要使用到关联的对象时, 才发送对应的 SQL 语句. 
 		Customer customer = order.getCustomer();
