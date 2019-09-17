@@ -10,7 +10,7 @@
     	<property name="connection.username">root</property>
     	<property name="connection.password">123456</property>
     	<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-    	<property name="connection.url">jdbc:mysql://192.168.1.7/hibernate5?useUnicod=true&amp;characterEncoding=utf-8</property>
+    	<property name="connection.url">jdbc:mysql://192.168.2.169/hibernate5?useUnicod=true&amp;characterEncoding=utf-8</property>
 
 		<!-- Hibernate 的基本配置 -->
 		<!-- Hibernate 使用的数据库方言,mysql5以后版本语句标准有变化,不能用MySQLInnoDBDialect -->
@@ -62,6 +62,9 @@
 
         <!--<mapping resource="com/atguigu/hibernate/joined/subclass/Person.hbm.xml"></mapping>-->
 
-        <mapping resource="com/atguigu/hibernate/union/subclass/Person.hbm.xml"></mapping>
+        <!--<mapping resource="com/atguigu/hibernate/union/subclass/Person.hbm.xml"></mapping>-->
+
+		<mapping resource="com/atguigu/hibernate/strategy/Order.hbm.xml"></mapping>
+        <mapping resource="com/atguigu/hibernate/strategy/Customer.hbm.xml"></mapping>
     </session-factory>
 </hibernate-configuration>
