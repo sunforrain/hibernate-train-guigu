@@ -39,7 +39,8 @@
     	<property name="jdbc.batch_size">30</property>
     	
     	<!-- 需要关联的 hibernate 映射文件 .hbm.xml -->
-		<!--<mapping resource="com/atguigu/hibernate/one2one/foreign/Department.hbm.xml"></mapping>-->
+		<mapping resource="com/atguigu/hibernate/entities/Department.hbm.xml"></mapping>
+		<mapping resource="com/atguigu/hibernate/entities/Employee.hbm.xml"></mapping>
 
     </session-factory>
 </hibernate-configuration>
