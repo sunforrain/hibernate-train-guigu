@@ -5,7 +5,8 @@
 <hibernate-mapping>
 
     <class name="com.atguigu.hibernate.entities.Employee" table="GG_EMPLOYEE">
-    	
+
+        <!--在 .hbm.xml 文件中配置对哪些类使用二级缓存-->
     	<!--  
     	<cache usage="read-write"/>
     	-->

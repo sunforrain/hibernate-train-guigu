@@ -39,6 +39,108 @@ public class HibernateTest {
 	}
 
     /**
+     * Iterator() 的测试
+     * list() 方法执行的 SQL 语句包含实体类对应的数据表的所有字段
+     * Iterator() 方法执行的SQL 语句中仅包含实体类对应的数据表的 ID 字段
+     * 当遍历访问结果集时, 该方法先到 Session 缓存及二级缓存中查看是否存在特定 OID 的对象,
+     * 如果存在, 就直接返回该对象,
+     * 如果不存在该对象就通过相应的 SQL Select 语句到数据库中加载特定的实体对象
+     * 一般不建议用,如果缓存里没有对应id的数据,会再发送select语句,数据量大的情况下很耗性能
+     */
+    @Test
+    public void testQueryIterate(){
+        Department dept = (Department) session.get(Department.class, 70);
+        System.out.println(dept.getName());
+        System.out.println(dept.getEmps().size());
+
+        Query query = session.createQuery("FROM Employee e WHERE e.dept.id = 80");
+//		List<Employee> emps = query.list();
+//		System.out.println(emps.size());
+
+        Iterator<Employee> empIt = query.iterate();
+        while(empIt.hasNext()){
+            System.out.println(empIt.next().getName());
+        }
+    }
+
+    /**
+     * 时间戳缓存区域,保证了缓存的查询结果是最新的,见ppt
+     */
+    @Test
+    public void testUpdateTimeStampCache(){
+        Query query = session.createQuery("FROM Employee");
+        query.setCacheable(true);
+
+        List<Employee> emps = query.list();
+        System.out.println(emps.size());
+
+        Employee employee = (Employee) session.get(Employee.class, 1);
+        employee.setSalary(30000);
+
+        emps = query.list();
+        System.out.println(emps.size());
+    }
+
+    /**
+     * 查询缓存: 默认情况下, 设置的缓存对 HQL 及 QBC 查询时无效的
+     */
+    @Test
+    public void testQueryCache(){
+        // HQL的开启方法
+        Query query = session.createQuery("FROM Employee");
+        query.setCacheable(true);
+
+        List<Employee> emps = query.list();
+        System.out.println(emps.size());
+
+        emps = query.list();
+        System.out.println(emps.size());
+
+        //QBC的开启,和HBL相同
+        Criteria criteria = session.createCriteria(Employee.class);
+        criteria.setCacheable(true);
+    }
+
+    /**
+     * 测试集合级别的缓存使用
+     */
+    @Test
+    public void testCollectionSecondLevelCache(){
+        Department dept = (Department) session.get(Department.class, 1);
+        System.out.println(dept.getName());
+        System.out.println(dept.getEmps().size());
+
+        transaction.commit();
+        session.close();
+
+        session = sessionFactory.openSession();
+        transaction = session.beginTransaction();
+
+        Department dept2 = (Department) session.get(Department.class, 1);
+        System.out.println(dept2.getName());
+        System.out.println(dept2.getEmps().size());
+    }
+
+    /**
+     * 测试二级缓存的方法,这里用的是ehcache
+     * class级别
+     */
+    @Test
+    public void testHibernateSecondLevelCache(){
+        Employee employee = (Employee) session.get(Employee.class, 1);
+        System.out.println(employee.getName());
+
+        transaction.commit();
+        session.close();
+        // 重新使用新的session,没有二级缓存的情况下,就会重新进行查询
+        session = sessionFactory.openSession();
+        transaction = session.beginTransaction();
+
+        Employee employee2 = (Employee) session.get(Employee.class, 1);
+        System.out.println(employee2.getName());
+    }
+
+    /**
      * HQL是支持DELETE的
      */
     @Test

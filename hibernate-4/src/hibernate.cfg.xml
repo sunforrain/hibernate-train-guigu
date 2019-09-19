@@ -37,10 +37,26 @@
     	<!---->
     	<!-- 设定对数据库进行批量删除，批量更新和批量插入的时候的批次大小 -->
     	<property name="jdbc.batch_size">30</property>
-    	
+
+		<!--启用二级缓存-->
+		<property name="cache.use_second_level_cache">true</property>
+
+        <!-- 配置使用的二级缓存的产品 -->
+        <!-- 注意这里包的位置和源码中hibernate.properties中的不同, 要实际看下hibernate-ehcache-4.2.4.Final.jar的内部 -->
+        <property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+
+        <!-- 声明开启查询缓存 -->
+        <property name="cache.use_query_cache">true</property>
+
     	<!-- 需要关联的 hibernate 映射文件 .hbm.xml -->
 		<mapping resource="com/atguigu/hibernate/entities/Department.hbm.xml"></mapping>
 		<mapping resource="com/atguigu/hibernate/entities/Employee.hbm.xml"></mapping>
+
+        <!--配置哪个类使用缓存-->
+        <class-cache usage="read-write" class="com.atguigu.hibernate.entities.Employee"/>
+        <class-cache usage="read-write" class="com.atguigu.hibernate.entities.Department"/>
+        <!--注意: 还需要配置集合中的元素对应的持久化类也使用二级缓存! 否则将会多出 n 条 SQL 语句. 也就是Employee要使用二级缓存-->
+        <collection-cache usage="read-write" collection="com.atguigu.hibernate.entities.Department.emps"/>
 
     </session-factory>
 </hibernate-configuration>

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="ehcache-core-2.4.3">
+    <CLASSES>
+      <root url="jar://D:/学习/hibernate学习/hibernate-4/lib/ehcache-core-2.4.3.jar!/" />
+      <root url="jar://D:/学习/hibernate学习/hibernate-4/lib/hibernate-ehcache-4.2.4.Final.jar!/" />
+      <root url="jar://D:/学习/hibernate学习/hibernate-4/lib/slf4j-api-1.6.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
