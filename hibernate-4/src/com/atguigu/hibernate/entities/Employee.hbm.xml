@@ -32,7 +32,9 @@
         </many-to-one>
         
     </class>
-    
-    <query name="salaryEmps"><![CDATA[FROM Employee e WHERE e.salary > :minSal AND e.salary < :maxSal]]></query>
+    <!--因为语句中可能有大于小于<>之类的,语句需要用![CDATA[]]包裹,防止对xml产生不良影响-->
+    <query name="salaryEmps">
+        <![CDATA[FROM Employee e WHERE e.salary > :minSal AND e.salary < :maxSal]]>
+    </query>
     
 </hibernate-mapping>

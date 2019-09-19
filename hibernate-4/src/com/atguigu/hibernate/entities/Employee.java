@@ -54,6 +54,16 @@ public class Employee {
 		return "Employee [id=" + id + "]";
 	}
 
+    public Employee(Integer id, String name, float salary, String email, Department dept) {
+        super();
+	    this.id = id;
+        this.name = name;
+        this.salary = salary;
+        this.email = email;
+        this.dept = dept;
+    }
+
+    // 用于投影查询的构造器
 	public Employee(String email, float salary, Department dept) {
 		super();
 		this.salary = salary;
