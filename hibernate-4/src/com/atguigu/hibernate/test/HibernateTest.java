@@ -1,16 +1,21 @@
 package com.atguigu.hibernate.test;
 
+import com.atguigu.hibernate.dao.DepartmentDao;
 import com.atguigu.hibernate.entities.Department;
 import com.atguigu.hibernate.entities.Employee;
+import com.atguigu.hibernate.hibernate.HibernateUtils;
 import org.hibernate.*;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.*;
+import org.hibernate.jdbc.Work;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.*;
 
 public class HibernateTest {
@@ -37,6 +42,44 @@ public class HibernateTest {
 		session.close();
 		sessionFactory.close();
 	}
+
+	// 批量操作建议用JDBC原生的API
+    @Test
+    public void testBatch(){
+        session.doWork(new Work() {
+            @Override
+            public void execute(Connection connection) throws SQLException {
+                //通过 JDBC 原生的 API 进行操作, 效率最高, 速度最快!
+            }
+        });
+    }
+
+    /**
+     * session的管理
+     */
+    @Test
+    public void testManageSession(){
+
+        //获取 Session
+        //开启事务
+        Session session = HibernateUtils.getInstance().getSession();
+        System.out.println("-->" + session.hashCode());
+        Transaction transaction = session.beginTransaction();
+
+        DepartmentDao departmentDao = new DepartmentDao();
+
+        Department dept = new Department();
+        dept.setName("ATGUIGU");
+
+        // 多次调用保存,会看到session打印的hashcode是一致的
+        departmentDao.save(dept);
+        departmentDao.save(dept);
+        departmentDao.save(dept);
+
+        //若 Session 是由 thread 来管理的, 则在提交或回滚事务时, 已经关闭 Session 了.
+        transaction.commit();
+        System.out.println(session.isOpen());
+    }
 
     /**
      * Iterator() 的测试
