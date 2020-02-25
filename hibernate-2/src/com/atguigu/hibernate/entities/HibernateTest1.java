@@ -227,7 +227,7 @@ public class HibernateTest1 {
 	 *    get 是 立即检索, load 是延迟检索. 
 	 * 
 	 * 2. load 方法可能会抛出 LazyInitializationException 异常: 在需要初始化
-	 * 代理对象之前已经关闭了 Session
+	 * 		代理对象之前已经关闭了 Session
 	 * 
 	 * 3. 若数据表中没有对应的记录, Session 也没有被关闭.  
 	 *    get 返回 null
@@ -322,7 +322,8 @@ public class HibernateTest1 {
 	 * 2. flush() 方法会可能会发送 SQL 语句, 但不会提交事务. 
 	 * 3. 注意: 在未提交事务或显式的调用 session.flush() 方法之前, 也有可能会进行 flush() 操作.
 	 * 1). 执行 HQL 或 QBC 查询, 会先进行 flush() 操作, 以得到数据表的最新的记录
-	 * 2). 这是个例外情况:若记录的 ID 是由底层数据库使用自增的方式生成的, 则在调用 save() 方法时, 就会立即发送 INSERT 语句,并提交事物.
+	 * 2). 这是个例外情况:若记录的 ID 是由底层数据库使用自增的方式生成的,
+	 * 		则在调用 save() 方法时, 就会立即发送 INSERT 语句,并提交事物.(commmit)
 	 *      因为 save 方法后, 必须保证对象的 ID 是存在的!
      *    如果是使用hibernate生成的主键ID,则不会立即发送INSERT语句,而是正常的先去查询新的ID,调用commit()
 	 */
